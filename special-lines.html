@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Lines - The Roots of Eternity</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .quotes-section {
+            padding: 6rem 0;
+            background-color: var(--background-color);
+        }
+
+        .quote-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .quote-card {
+            background-color: var(--primary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .quote-author {
+            text-align: right;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .quote-category {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+        }
+
+        .quote-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.2;
+            font-size: 2rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .copyright p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .copyright p:first-child {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .navbar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px;
+                transition: 0.3s;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                margin: 15px 0;
+                font-size: 1.2rem;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gold-text">The Roots of Eternity</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="about-author.html">About Author</a>
+            <a href="characters.html">Characters</a>
+            <a href="tree-of-life.html">Tree Of Life</a>
+            <a href="special-lines.html" class="active">Special Lines</a>
+            <a href="future.html">Future</a>
+            <a href="buy.html">Buy</a>
+            <a href="contact.html">Contact Us/Feedback</a>
+        </div>
+    </nav>
+
+    <section class="quotes-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Special Lines</h2>
+                <p>Memorable quotes that capture the essence of the story</p>
+            </div>
+
+            <div class="quote-filters">
+                <button class="filter-btn active" data-category="all">All Quotes</button>
+                <button class="filter-btn" data-category="wisdom">Wisdom</button>
+                <button class="filter-btn" data-category="power">Power</button>
+                <button class="filter-btn" data-category="destiny">Destiny</button>
+            </div>
+
+            <div class="quote-container">
+                <div class="quote-card" data-category="wisdom">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"The greatest power lies not in what we can do, but in what we choose not to do."</p>
+                    <p class="quote-author">- Oakheart</p>
+                    <span class="quote-category">Wisdom</span>
+                </div>
+
+                <div class="quote-card" data-category="power">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"When technology and magic collide, the impossible becomes reality."</p>
+                    <p class="quote-author">- Ethan Blaze</p>
+                    <span class="quote-category">Power</span>
+                </div>
+
+                <div class="quote-card" data-category="destiny">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"Our choices shape our destiny, but our hearts guide our choices."</p>
+                    <p class="quote-author">- Tara Frost</p>
+                    <span class="quote-category">Destiny</span>
+                </div>
+
+                <div class="quote-card" data-category="wisdom">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"The Tree of Life doesn't just give power; it reveals the truth within us."</p>
+                    <p class="quote-author">- Oakheart</p>
+                    <span class="quote-category">Wisdom</span>
+                </div>
+
+                <div class="quote-card" data-category="power">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"Strength isn't just in the muscles, but in the will to protect what matters."</p>
+                    <p class="quote-author">- Jax Storm</p>
+                    <span class="quote-category">Power</span>
+                </div>
+
+                <div class="quote-card" data-category="destiny">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"Sometimes, the path to truth is hidden in the shadows we fear to face."</p>
+                    <p class="quote-author">- Leo Frost</p>
+                    <span class="quote-category">Destiny</span>
+                </div>
+
+                <div class="quote-card" data-category="destiny">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"In the shadows of the Tree of Life, we find not just darkness, but the light of our true selves."</p>
+                    <p class="quote-author">- Nina Shade</p>
+                    <span class="quote-category">Destiny</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="mailto:therootsofeternity5@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="about-author.html">About the Author</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="special-lines.html">Special Lines</a></li>
+                        <li><a href="future.html">Future</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="buy.html">Buy</a></li>
+                        <li><a href="tree-of-life.html">Tree of Life</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Roots of Eternity by Kavish and Tamanaa Tolani. All rights reserved.</p>
+                <p>Published through Notion Press</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const quoteCards = document.querySelectorAll('.quote-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+
+                    quoteCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            navLinksItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Author - The Roots of Eternity</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .author-section {
+            padding: 8rem 0;
+            background-color: var(--background-color);
+        }
+
+        .author-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .authors-photo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .authors-photo-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(212, 175, 55, 0.5),
+                rgba(212, 175, 55, 0.8),
+                rgba(212, 175, 55, 0.5),
+                transparent);
+        }
+
+        .author-photo {
+            width: 100%;
+            max-width: 1000px;
+            height: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .author-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .author-photo:hover img {
+            transform: scale(1.05);
+        }
+
+        .author-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .author-info {
+            margin-bottom: 2rem;
+        }
+
+        .author-name {
+            color: var(--secondary-color);
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .author-role {
+            color: #000000;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .author-bio {
+            color: #000000;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .author-bio p {
+            color: #000000;
+        }
+
+        .author-quote {
+            background-color: rgba(0,0,0,0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .author-quote p {
+            color: black;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .author-quote .quote-author {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-top: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 3.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+        }
+
+        .author-insights {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 3.5rem;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.95) 0%,
+                rgba(26, 26, 26, 0.95) 50%,
+                rgba(0, 0, 0, 0.95) 100%);
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px rgba(212, 175, 55, 0.2),
+                0 0 0 1px rgba(212, 175, 55, 0.1),
+                inset 0 0 20px rgba(212, 175, 55, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .author-insights::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(212, 175, 55, 0.5),
+                rgba(212, 175, 55, 0.8),
+                rgba(212, 175, 55, 0.5),
+                transparent);
+        }
+
+        .author-insights::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                circle at 50% 50%,
+                rgba(212, 175, 55, 0.1) 0%,
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .insights-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #D4AF37;
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            padding-bottom: 1.2rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .insights-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent,
+                rgba(212, 175, 55, 0.5),
+                rgba(212, 175, 55, 0.8),
+                rgba(212, 175, 55, 0.5),
+                transparent);
+        }
+
+        .insights-list {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .insights-list li {
+            color: #ffffff;
+            padding: 1.5rem 2rem;
+            position: relative;
+            line-height: 1.8;
+            background: linear-gradient(
+                135deg,
+                rgba(212, 175, 55, 0.1) 0%,
+                rgba(212, 175, 55, 0.05) 100%
+            );
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            margin-bottom: 0;
+        }
+
+        .insights-list li:hover {
+            transform: translateX(10px);
+            box-shadow: 
+                0 4px 15px rgba(212, 175, 55, 0.2),
+                0 0 0 1px rgba(212, 175, 55, 0.2);
+            background: linear-gradient(
+                135deg,
+                rgba(212, 175, 55, 0.15) 0%,
+                rgba(212, 175, 55, 0.08) 100%
+            );
+        }
+
+        .insights-list li:before {
+            content: "•";
+            color: #D4AF37;
+            position: absolute;
+            left: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .insights-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .author-insights {
+                max-width: 90%;
+                padding: 3rem;
+            }
+
+            .insights-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .authors-photo-container {
+                padding: 1.5rem;
+            }
+
+            .author-photo {
+                height: 400px;
+            }
+
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+
+            .author-insights {
+                padding: 2rem;
+                margin: 2rem 1rem;
+            }
+
+            .insights-title {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+
+            .insights-list li {
+                padding: 1.2rem 1.5rem;
+            }
+        }
+
+        .update-notification {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .update-notification h3 {
+            color: var(--secondary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .update-notification p {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gold-text">The Roots of Eternity</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="about-author.html" class="active">About Author</a>
+            <a href="characters.html">Characters</a>
+            <a href="tree-of-life.html">Tree Of Life</a>
+            <a href="special-lines.html">Special Lines</a>
+            <a href="future.html">Future</a>
+            <a href="buy.html">Buy</a>
+            <a href="contact.html">Contact Us/Feedback</a>
+        </div>
+    </nav>
+
+    <section class="author-section">
+        <div class="author-container">
+            <div class="section-title">
+                <h2>About the Authors</h2>
+            </div>
+            <div class="author-quote featured">
+                <p>"We believe that the best stories are those that blend the familiar with the extraordinary, creating worlds that readers can both escape to and find themselves in."</p>
+                <p class="quote-author">- Kavish and Tamanaa Tolani</p>
+            </div>
+            <div class="authors-photo-container">
+                <div class="author-photo">
+                    <img src="images/authors.jpg" alt="Kavish and Tamanaa Tolani">
+                </div>
+            </div>
+
+            <div class="author-insights">
+                <h3 class="insights-title">Author Insights</h3>
+                <ul class="insights-list">
+                    <li>Kavish Tolani designed and coded the entire website himself using VS Code and Cursor. He finds similarities with the character Ethan.</li>
+                    <li>Tamanaa Tolani named and designed the characters looks using procreate. She is the Creative brain and is similar to the character Tara.</li>
+                    <li>Chat GPT was used to check the grammar.</li>
+                    <li>The storyline was plotted by both Kavish and Tamanaa, completed over 4 months.</li>
+                    <li>Please excuse any grammatical errors, as this is our first attempt at writing a book.</li>
+                    <li>We promise to strive for improvement in our next book.</li>
+                    <li>We thank our parents from the bottom of our heart for giving us wings to fly.</li>
+                </ul>
+            </div>
+
+            <div class="author-card">
+                <div class="author-info">
+                    <h2 class="author-name">Kavish Tolani</h2>
+                    <p class="author-role">Co-author and creator of the world of "The Roots of Eternity"</p>
+                    <div class="author-bio">
+                        <p>
+                            Kavish Tolani, a spirited 15-year-old, is currently a 10th-grade student at Indus Universal School in Hyderabad. Known for his exceptional problem-solving skills, Kavish passionately engages in various interests. He is a chess enthusiast and plays the guitar, bringing joy to his mother. Celebrated as an Olympiad champion at his school, Kavish also finds great pleasure in exploring the realms of mathematics, physics, chemistry, computers, and coding. Demonstrating remarkable leadership, he serves as a house captain, guiding his peers with dedication. Kavish has creatively designed websites for his family and aspires to join a business school, aiming to make a positive societal impact through entrepreneurship, job creation, and becoming a business tycoon.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="author-card">
+                <div class="author-info">
+                    <h2 class="author-name">Tamanaa Tolani</h2>
+                    <p class="author-role">Co-author and visionary behind the story's mythology</p>
+                    <div class="author-bio">
+                        <p>
+                            Tamanaa Tolani, at 12, is Kavish's talented younger sister and a seventh grader at Indus Universal School in Secunderabad. Known for her boundless creativity, Tamanaa excels as an artist, using her free time to paint and design book characters. Her vivid imagination has significantly contributed to the sibling collaboration on this book. A loving friend and cherished daughter, she is her parents' pride and joy. Passionate about storytelling, Tamanaa enjoys reading books, watching television, and diving into anime worlds. She aspires to pursue a career in the creative field, driven by her desire to bring imagination to life through artistic endeavors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="mailto:therootsofeternity5@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="about-author.html">About the Author</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="special-lines.html">Special Lines</a></li>
+                        <li><a href="future.html">Future</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="buy.html">Buy</a></li>
+                        <li><a href="tree-of-life.html">Tree of Life</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Roots of Eternity by Kavish and Tamanaa Tolani. All rights reserved.</p>
+                <p>Published through Notion Press</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html> 
