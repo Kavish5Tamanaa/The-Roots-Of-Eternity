@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree of Life - The Roots of Eternity</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .tree-section {
+            padding: clamp(0.3rem, 1.5vh, 0.8rem) 0;
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            isolation: isolate;
+        }
+
+        .underground-container {
+            position: relative;
+            width: min(100% - 1rem, 1400px);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: clamp(0.2rem, 1.2vw, 0.4rem);
+            margin-top: clamp(0.8rem, 2vh, 1.2rem);
+            gap: clamp(0.5rem, 2vh, 1rem);
+        }
+
+        .title {
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.9rem, 3.2vw, 2rem);
+            color: #D4AF37;
+            text-shadow: 0 0 10px #FFD700;
+            z-index: 10;
+            text-align: center;
+            width: min(100% - 2rem, 800px);
+            margin-bottom: clamp(0.6rem, 1.8vh, 1rem);
+            padding: 0 clamp(0.4rem, 1.8vw, 0.8rem);
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+
+        .chambers {
+            position: relative;
+            width: min(100% - 0.5rem, 1200px);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+            gap: clamp(3px, 1vw, 8px);
+            padding: clamp(3px, 1vw, 8px);
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: clamp(4px, 1.5vw, 12px);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            margin: 0 auto;
+            backdrop-filter: blur(4px);
+        }
+
+        .chamber {
+            position: relative;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8), rgba(0, 0, 0, 0.9));
+            border-radius: clamp(3px, 1vw, 8px);
+            padding: clamp(3px, 1vw, 8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            overflow: hidden;
+            aspect-ratio: 1;
+            min-height: clamp(90px, 20vw, 160px);
+            will-change: transform;
+        }
+
+        .chamber:hover {
+            transform: translateY(-3px) scale(1.01);
+            border-color: #D4AF37;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .chamber i {
+            font-size: clamp(0.8rem, 2vw, 1.6rem);
+            margin-bottom: clamp(2px, 0.6vw, 4px);
+            color: #D4AF37;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .chamber:hover i {
+            transform: scale(1.05);
+        }
+
+        .chamber h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #D4AF37;
+            margin-bottom: clamp(2px, 0.5vw, 3px);
+            text-align: center;
+            font-size: clamp(0.6rem, 1.3vw, 0.85rem);
+            z-index: 2;
+            line-height: 1.2;
+            padding: 0 clamp(2px, 0.4vw, 3px);
+            letter-spacing: 0.01em;
+        }
+
+        .chamber p {
+            color: #fff;
+            text-align: center;
+            font-size: clamp(0.5rem, 1.1vw, 0.7rem);
+            z-index: 2;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+            margin: 0;
+            padding: 0 clamp(2px, 0.4vw, 3px);
+            opacity: 0.9;
+        }
+
+        .chamber .lock-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ff0000;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+
+        .tunnels {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tunnel {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            height: 2px;
+            transform-origin: left;
+        }
+
+        .tunnel-1 { top: 33.33%; left: 0; width: 100%; }
+        .tunnel-2 { top: 66.66%; left: 0; width: 100%; }
+        .tunnel-3 { left: 33.33%; top: 0; height: 100%; }
+        .tunnel-4 { left: 66.66%; top: 0; height: 100%; }
+
+        .info-panel {
+            position: fixed;
+            bottom: clamp(2px, 1vh, 4px);
+            right: clamp(2px, 1vw, 4px);
+            background: rgba(0, 0, 0, 0.95);
+            padding: clamp(3px, 1vw, 8px);
+            border-radius: clamp(3px, 1vw, 6px);
+            color: white;
+            width: min(95% - 0.5rem, 260px);
+            transform: translateY(100%);
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .info-panel h3 {
+            font-size: clamp(0.75rem, 1.4vw, 0.9rem);
+            margin-bottom: clamp(2px, 0.6vw, 4px);
+            line-height: 1.3;
+            letter-spacing: 0.01em;
+        }
+
+        .info-panel p {
+            font-size: clamp(0.6rem, 1.1vw, 0.7rem);
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .heartstone {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #D4AF37, #FFD700, #FFA500);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 20px #D4AF37,
+                0 0 40px #FFD700,
+                0 0 60px #FFA500,
+                0 0 80px rgba(212, 175, 55, 0.5);
+            animation: pulse 2s infinite, rotate 10s infinite linear;
+            z-index: 2;
+        }
+
+        .heartstone::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent);
+            border-radius: 50%;
+            filter: blur(5px);
+        }
+
+        .heartstone::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.6), transparent);
+            border-radius: 50%;
+            filter: blur(3px);
+        }
+
+        .ravok {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 150px;
+            background: linear-gradient(45deg, #2c2c2c, #1a1a1a);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 1;
+            animation: trapped 3s infinite;
+        }
+
+        .ravok::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,0,0,0.2));
+        }
+
+        .dark-elf {
+            position: absolute;
+            width: 60px;
+            height: 100px;
+            background: linear-gradient(45deg, #1a1a1a, #2c2c2c);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            z-index: 3;
+        }
+
+        .dark-elf-1 {
+            top: 40%;
+            left: 20%;
+            transform: rotate(-20deg);
+            animation: guard 4s infinite;
+        }
+
+        .dark-elf-2 {
+            top: 40%;
+            right: 20%;
+            transform: rotate(20deg);
+            animation: guard 4s infinite 2s;
+        }
+
+        .dark-elf-3 {
+            top: 60%;
+            left: 30%;
+            transform: rotate(-10deg);
+            animation: guard 4s infinite 1s;
+        }
+
+        .dark-elf-4 {
+            top: 60%;
+            right: 30%;
+            transform: rotate(10deg);
+            animation: guard 4s infinite 3s;
+        }
+
+        .energy-particles {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #D4AF37;
+            border-radius: 50%;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                opacity: 0.2;
+            }
+        }
+
+        .explore-button {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 5;
+        }
+
+        .explore-button:hover {
+            transform: translateX(-50%) translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 10;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--primary-color);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .modal-text {
+            color: var(--accent-color);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                display: none;
+            }
+            
+            .underground-container {
+                margin-top: clamp(0.6rem, 1.5vh, 1rem);
+                padding: clamp(0.1rem, 0.6vw, 0.2rem);
+            }
+
+            .chambers {
+                grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+                gap: clamp(2px, 0.8vw, 4px);
+                padding: clamp(2px, 0.8vw, 4px);
+            }
+
+            .chamber {
+                padding: clamp(2px, 0.8vw, 4px);
+                min-height: clamp(70px, 22vw, 140px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chambers {
+                grid-template-columns: 1fr;
+                gap: clamp(2px, 0.6vw, 3px);
+            }
+
+            .chamber {
+                aspect-ratio: 16/9;
+                padding: clamp(2px, 0.6vw, 3px);
+                min-height: clamp(60px, 25vw, 120px);
+            }
+
+            .description-content {
+                padding: clamp(0.3rem, 1.2vw, 0.5rem);
+                margin: clamp(0.1rem, 0.6vw, 0.15rem);
+            }
+
+            .close-modal {
+                top: clamp(0.1rem, 0.4vw, 0.2rem);
+                right: clamp(0.1rem, 0.4vw, 0.2rem);
+                font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+            }
+
+            .chamber i {
+                font-size: clamp(0.7rem, 1.6vw, 1.1rem);
+            }
+
+            .chamber h3 {
+                font-size: clamp(0.5rem, 1.1vw, 0.65rem);
+            }
+
+            .chamber p {
+                font-size: clamp(0.4rem, 0.9vw, 0.55rem);
+            }
+        }
+
+        /* Ensure modals are responsive */
+        .modal-content {
+            width: min(95% - 0.5rem, 440px);
+            padding: clamp(0.5rem, 1.5vw, 0.9rem);
+            margin: clamp(0.15rem, 1vw, 0.4rem);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-title {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            line-height: 1.3;
+            padding: 0 clamp(0.15rem, 0.6vw, 0.3rem);
+            letter-spacing: 0.01em;
+        }
+
+        .modal-text {
+            font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+            line-height: 1.5;
+            padding: 0 clamp(0.15rem, 0.6vw, 0.3rem);
+            opacity: 0.9;
+        }
+
+        /* Improve touch targets for mobile */
+        .chamber, 
+        .close-modal,
+        .explore-button {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Ensure proper spacing for mobile navigation */
+        .tree-section {
+            padding-top: 3rem;
+        }
+
+        .description-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .description-content {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(0, 0, 0, 0.99));
+            padding: clamp(0.6rem, 2vw, 1rem);
+            border-radius: clamp(6px, 1.8vw, 10px);
+            width: min(95% - 1rem, 580px);
+            border: 2px solid #D4AF37;
+            position: relative;
+            animation: modalAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) ease-out;
+            margin: clamp(0.2rem, 1.2vw, 0.6rem);
+            backdrop-filter: blur(4px);
+        }
+
+        .description-content h2 {
+            font-size: clamp(1rem, 2.2vw, 1.4rem);
+            margin-bottom: clamp(0.3rem, 1.2vw, 0.6rem);
+            line-height: 1.3;
+            padding: 0 clamp(0.2rem, 0.8vw, 0.4rem);
+            letter-spacing: 0.01em;
+        }
+
+        .description-content p {
+            font-size: clamp(0.65rem, 1.4vw, 0.85rem);
+            line-height: 1.5;
+            margin-bottom: clamp(0.3rem, 1.2vw, 0.6rem);
+            padding: 0 clamp(0.2rem, 0.8vw, 0.4rem);
+            opacity: 0.9;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #D4AF37;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: #FFD700;
+        }
+
+        @keyframes modalAppear {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .tree-hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('../images/magical-forest-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .tree-title {
+            font-size: 3.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .tree-subtitle {
+            font-size: 1.5rem;
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .tree-hero {
+                padding: 6rem 0 3rem;
+            }
+
+            .tree-title {
+                font-size: 2.5rem;
+            }
+
+            .tree-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        .volume-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(0, 0, 0, 0.98));
+            padding: clamp(0.5rem, 1.5vw, 1rem);
+            border-radius: clamp(4px, 1.5vw, 8px);
+            border: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+            text-align: center;
+            z-index: 1000;
+            max-width: min(90% - 0.5rem, 340px);
+            width: min(95% - 0.5rem, 340px);
+            animation: modalAppear 0.5s ease-out;
+            backdrop-filter: blur(4px);
+        }
+
+        .volume-popup h3 {
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin-bottom: clamp(0.2rem, 1vw, 0.4rem);
+            line-height: 1.3;
+            letter-spacing: 0.01em;
+        }
+
+        .volume-popup p {
+            font-size: clamp(0.6rem, 1.2vw, 0.8rem);
+            line-height: 1.5;
+            margin-bottom: clamp(0.3rem, 1vw, 0.6rem);
+            padding: 0 clamp(0.15rem, 0.6vw, 0.3rem);
+            opacity: 0.9;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-popup:hover {
+            transform: rotate(90deg);
+            color: #FFD700;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .copyright p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .copyright p:first-child {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .navbar {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px;
+                transition: 0.3s;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                margin: 15px 0;
+                font-size: 1.2rem;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gold-text">The Roots of Eternity</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="about-author.html">About Author</a>
+            <a href="characters.html">Characters</a>
+            <a href="tree-of-life.html" class="active">Tree Of Life</a>
+            <a href="special-lines.html">Special Lines</a>
+            <a href="future.html">Future</a>
+            <a href="buy.html">Buy</a>
+            <a href="contact.html">Contact Us/Feedback</a>
+        </div>
+    </nav>
+
+    <section class="tree-hero">
+        <div class="container">
+            <h1 class="tree-title">Explore the Tree of Life</h1>
+            <p class="tree-subtitle">Discover the ancient entity that connects all realms of existence</p>
+        </div>
+    </section>
+
+    <section class="tree-section">
+        <h1 class="title">What Lies Beneath</h1>
+        <div class="underground-container">
+            <div class="chambers">
+                <div class="tunnels">
+                    <div class="tunnel tunnel-1"></div>
+                    <div class="tunnel tunnel-2"></div>
+                    <div class="tunnel tunnel-3"></div>
+                    <div class="tunnel tunnel-4"></div>
+                </div>
+                <div class="chamber accessible" data-chamber="heartstone">
+                    <i class="fas fa-gem"></i>
+                    <h3>Heartstone Chamber</h3>
+                    <p>Click to explore</p>
+                </div>
+                <div class="chamber accessible" data-chamber="ravok">
+                    <i class="fas fa-skull"></i>
+                    <h3>Ravok's Prison</h3>
+                    <p>Click to explore</p>
+                </div>
+                <div class="chamber accessible" data-chamber="darkelves">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Dark Elves' Domain</h3>
+                    <p>Click to explore</p>
+                </div>
+                <div class="chamber locked middle-row">
+                    <i class="fas fa-lock"></i>
+                    <h3>Forbidden</h3>
+                    <p>To be revealed in Volume 2</p>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+                <div class="chamber locked middle-row">
+                    <i class="fas fa-lock"></i>
+                    <h3>Forbidden</h3>
+                    <p>To be revealed in Volume 2</p>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+                <div class="chamber locked middle-row">
+                    <i class="fas fa-lock"></i>
+                    <h3>Forbidden</h3>
+                    <p>To be revealed in Volume 2</p>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+                <div class="chamber locked">
+                    <i class="fas fa-lock"></i>
+                    <h3>Forbidden</h3>
+                    <p>Too deep to access</p>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+                <div class="chamber locked">
+                    <i class="fas fa-lock"></i>
+                    <h3>Forbidden</h3>
+                    <p>Too deep to access</p>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+                <div class="chamber locked">
+                    <i class="fas fa-lock"></i>
+                    <h3>Forbidden</h3>
+                    <p>Too deep to access</p>
+                    <i class="fas fa-lock lock-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="description-modal" id="descriptionModal">
+            <div class="description-content">
+                <button class="close-modal" id="closeModal">&times;</button>
+                <h2 id="modalTitle">Chamber Title</h2>
+                <p id="modalDescription">Chamber description will appear here.</p>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h3>Explore the Depths</h3>
+            <p>Click on accessible chambers to learn more about their secrets.</p>
+        </div>
+    </section>
+
+    <div class="volume-popup" id="volumePopup">
+        <button class="close-popup">&times;</button>
+        <h3>Coming Soon</h3>
+        <p>These mysterious chambers will be revealed in Volume 2 of "The Roots of Eternity". Stay tuned for more secrets to be uncovered!</p>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="mailto:therootsofeternity5@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="about-author.html">About the Author</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="special-lines.html">Special Lines</a></li>
+                        <li><a href="future.html">Future</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="buy.html">Buy</a></li>
+                        <li><a href="tree-of-life.html">Tree of Life</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Roots of Eternity by Kavish and Tamanaa Tolani. All rights reserved.</p>
+                <p>Published through Notion Press</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        const chambers = {
+            heartstone: {
+                title: "Heartstone Chamber",
+                description: "The Heartstone Chamber is the source of the Tree of Life's eternal power. This golden core pulses with ancient magic, sustaining the entire realm. Legends speak of its ability to grant immense power to those who can harness its energy, but the chamber is heavily guarded by ancient wards and protective spells."
+            },
+            ravok: {
+                title: "Ravok's Prison",
+                description: "Deep beneath the surface lies Ravok's Prison, where the ancient being has been confined for centuries. The prison is constructed from enchanted obsidian and reinforced with powerful binding spells. Despite the containment, Ravok's dark influence still seeps through the cracks, affecting those who venture too close to his domain."
+            },
+            darkelves: {
+                title: "Dark Elves' Domain",
+                description: "The Dark Elves are the eternal guardians of the Tree of Life. Their sacred duty is to protect the tree from any who would seek to harm it. They maintain constant vigilance, patrolling the roots and chambers, ensuring the tree's safety. Their ancient magic and combat skills make them formidable protectors, and their loyalty to the tree is absolute. None may pass their watch without their permission."
+            }
+        };
+
+        const modal = document.getElementById('descriptionModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+
+        document.querySelectorAll('.chamber.accessible').forEach(chamber => {
+            chamber.addEventListener('click', () => {
+                const chamberType = chamber.dataset.chamber;
+                modalTitle.textContent = chambers[chamberType].title;
+                modalDescription.textContent = chambers[chamberType].description;
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
+            particle.style.setProperty('--ty', `${Math.random() * 100 - 50}px`);
+            particle.style.animationDelay = `${Math.random() * 3}s`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add click event to middle row chambers
+        document.querySelectorAll('.chamber.locked.middle-row').forEach(chamber => {
+            chamber.addEventListener('click', () => {
+                document.getElementById('volumePopup').style.display = 'block';
+            });
+        });
+
+        // Close popup when clicking the close button
+        document.querySelector('.close-popup').addEventListener('click', () => {
+            document.getElementById('volumePopup').style.display = 'none';
+        });
+
+        // Close popup when clicking outside
+        window.addEventListener('click', (event) => {
+            const popup = document.getElementById('volumePopup');
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            navLinksItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
