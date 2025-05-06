@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Roots of Eternity - A Fantasy Adventure</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .hero {
+            background-image: url('images/magical-forest-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            padding: 8rem 0;
+            text-align: center;
+            color: var(--primary-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-authors {
+            color: var(--secondary-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-style: italic;
+        }
+
+        .hero .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+            margin: 0 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .hero .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .hero .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 6rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        .featured-quote {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
+            color: var(--light-text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-quote::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('../images/magical-forest-hero.jpg') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .featured-quote blockquote {
+            font-size: 2.2rem;
+            font-style: italic;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-content {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            color: var(--secondary-color);
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .quote-mark.left {
+            top: -2rem;
+            left: -2rem;
+        }
+
+        .quote-mark.right {
+            bottom: -2rem;
+            right: -2rem;
+        }
+
+        .featured-quote p {
+            margin: 0;
+            line-height: 1.6;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 500;
+        }
+
+        .featured-quote cite {
+            display: block;
+            margin-top: 2rem;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            .featured-quote blockquote {
+                font-size: 1.8rem;
+                padding: 2rem;
+            }
+
+            .quote-mark {
+                font-size: 4rem;
+            }
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .copyright p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .copyright p:first-child {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #000000;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 2rem;
+            background: #000000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            padding: 0.2rem 0.3rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #D4AF37;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-links a.active {
+            color: #D4AF37;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #D4AF37;
+            margin: 2px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                backdrop-filter: blur(8px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.8rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .logo {
+                font-size: 0.7rem;
+            }
+
+            .nav-links {
+                gap: 0.3rem;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 0.15rem 0.25rem;
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), var(--secondary-color));
+            transition: opacity 0.3s ease;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .hero-button:hover::before {
+            opacity: 1;
+        }
+
+        .hero-button:active {
+            transform: translateY(1px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 3.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #D4AF37;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+        }
+
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gold-text">The Roots of Eternity</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="about.html">About</a>
+            <a href="about-author.html">About Author</a>
+            <a href="characters.html">Characters</a>
+            <a href="tree-of-life.html">Tree Of Life</a>
+            <a href="special-lines.html">Special Lines</a>
+            <a href="future.html">Future</a>
+            <a href="buy.html">Buy</a>
+            <a href="contact.html">Contact/Feedback</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-authors">by Kavish and Tamanaa Tolani</div>
+            <h1>The Roots of Eternity</h1>
+            <p>Embark on a journey through time and space, where ancient wisdom meets modern adventure.</p>
+            <div class="hero-buttons">
+                <a href="about.html" class="hero-button">Learn More</a>
+                <a href="about-author.html" class="hero-button">Meet the Authors</a>
+                <a href="buy.html" class="hero-button">Buy Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="book-preview">
+        <div class="container">
+            <div class="section-title">
+                <h2>Discover the Magic</h2>
+            </div>
+            <div class="preview-cards">
+                <div class="card">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Epic Storyline</h3>
+                    <p>Follow the journey of Ethan and Tara as they discover the secrets of the Tree of Life and face the challenges of destiny.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Rich Characters</h3>
+                    <p>Meet a diverse cast of characters, each with their own unique abilities and personal struggles.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-magic"></i>
+                    <h3>Magical World</h3>
+                    <p>Explore a world where technology and magic intertwine, creating a unique and immersive setting.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-tree"></i>
+                    <h3>Tree of Life</h3>
+                    <p>Discover the ancient secrets and powers hidden within the mystical Tree of Life.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-dragon"></i>
+                    <h3>Epic Battles</h3>
+                    <p>Experience thrilling battles between good and evil, where the fate of the world hangs in the balance.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-hourglass-half"></i>
+                    <h3>Journeys</h3>
+                    <p>Journey through different eras as the characters navigate the complexities of time and destiny.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured-quote">
+        <div class="container">
+            <blockquote>
+                <div class="quote-content">
+                    <span class="quote-mark left">"</span>
+                    <p>In the roots of eternity, where time bends and magic flows, the fate of worlds is decided.</p>
+                    <span class="quote-mark right">"</span>
+                </div>
+                <cite>- The Roots of Eternity</cite>
+            </blockquote>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="mailto:therootsofeternity5@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="about-author.html">About the Author</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="special-lines.html">Special Lines</a></li>
+                        <li><a href="future.html">Future</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="buy.html">Buy</a></li>
+                        <li><a href="tree-of-life.html">Tree of Life</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Roots of Eternity by Kavish and Tamanaa Tolani. All rights reserved.</p>
+                <p>Published through Notion Press</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            navLinksItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+
+        // Add scroll behavior
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Prevent body scroll when mobile menu is open
+        const hamburger = document.querySelector('.hamburger');
+        const body = document.body;
+        
+        hamburger.addEventListener('click', function() {
+            if (this.classList.contains('active')) {
+                body.style.overflow = 'auto';
+            } else {
+                body.style.overflow = 'hidden';
+            }
+        });
+    </script>
+</body>
+</html>

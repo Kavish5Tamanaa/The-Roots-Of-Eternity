@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - The Roots of Eternity</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .contact-section {
+            padding: 6rem 0;
+            background-color: var(--background-color);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .contact-card {
+            background-color: var(--primary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 2px solid var(--secondary-color);
+            border-radius: 5px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 5px rgba(139, 69, 19, 0.3);
+        }
+
+        .submit-button {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 1rem;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            background-color: var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card i {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            color: var(--accent-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+        }
+
+        .form-message {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: rgba(0, 255, 0, 0.1);
+            color: green;
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: red;
+            display: block;
+        }
+
+        .preview-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .preview-section.visible {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .preview-sender {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+        }
+
+        .preview-subject {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .preview-message {
+            color: var(--accent-color);
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .preview-footer {
+            margin-top: 1rem;
+            text-align: right;
+            font-style: italic;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .preview-toggle {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .preview-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .copyright p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .copyright p:first-child {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #000000;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.8rem 2rem;
+            background: #000000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            padding: 0.2rem 0.3rem;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #D4AF37;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-links a.active {
+            color: #D4AF37;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            border-bottom: 2px solid #D4AF37;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #D4AF37;
+            margin: 2px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                backdrop-filter: blur(8px);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.8rem;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .logo {
+                font-size: 0.7rem;
+            }
+
+            .nav-links {
+                gap: 0.3rem;
+            }
+
+            .nav-links a {
+                font-size: 0.75rem;
+                padding: 0.15rem 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <span class="gold-text">The Roots of Eternity</span>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="about-author.html">About Author</a>
+            <a href="characters.html">Characters</a>
+            <a href="tree-of-life.html">Tree Of Life</a>
+            <a href="special-lines.html">Special Lines</a>
+            <a href="future.html">Future</a>
+            <a href="buy.html">Buy</a>
+            <a href="contact.html" class="active">Contact Us/Feedback</a>
+        </div>
+    </nav>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-card">
+                    <form class="contact-form" id="contactForm" action="https://formspree.io/f/xzzrelnb" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="button" class="preview-toggle" id="previewToggle">
+                            <i class="fas fa-eye"></i> Preview Message
+                        </button>
+                        <div class="preview-section" id="previewSection">
+                            <div class="preview-header">
+                                <div class="preview-avatar" id="previewAvatar">?</div>
+                                <div class="preview-sender" id="previewSender">Your Name</div>
+                            </div>
+                            <div class="preview-subject" id="previewSubject">Subject</div>
+                            <div class="preview-message" id="previewMessage">Your message will appear here...</div>
+                            <div class="preview-footer">
+                                Sent via The Roots of Eternity Contact Form
+                            </div>
+                        </div>
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="info-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>therootsofeternity5@gmail.com</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Location</h3>
+                        <p>India</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                
+                        <a href="mailto:therootsofeternity5@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="about-author.html">About the Author</a></li>
+                        <li><a href="characters.html">Characters</a></li>
+                        <li><a href="special-lines.html">Special Lines</a></li>
+                        <li><a href="future.html">Future</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="buy.html">Buy</a></li>
+                        <li><a href="tree-of-life.html">Tree of Life</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 The Roots of Eternity by Kavish and Tamanaa Tolani. All rights reserved.</p>
+                <p>Published through Notion Press</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            const previewToggle = document.getElementById('previewToggle');
+            const previewSection = document.getElementById('previewSection');
+            const previewAvatar = document.getElementById('previewAvatar');
+            const previewSender = document.getElementById('previewSender');
+            const previewSubject = document.getElementById('previewSubject');
+            const previewMessage = document.getElementById('previewMessage');
+
+            // Update preview when form fields change
+            const nameInput = document.getElementById('name');
+            const subjectInput = document.getElementById('subject');
+            const messageInput = document.getElementById('message');
+
+            function updatePreview() {
+                const name = nameInput.value || 'Your Name';
+                const subject = subjectInput.value || 'Subject';
+                const message = messageInput.value || 'Your message will appear here...';
+                
+                previewAvatar.textContent = name.charAt(0).toUpperCase();
+                previewSender.textContent = name;
+                previewSubject.textContent = subject;
+                previewMessage.textContent = message;
+            }
+
+            nameInput.addEventListener('input', updatePreview);
+            subjectInput.addEventListener('input', updatePreview);
+            messageInput.addEventListener('input', updatePreview);
+
+            // Toggle preview visibility
+            previewToggle.addEventListener('click', function() {
+                previewSection.classList.toggle('visible');
+                this.innerHTML = previewSection.classList.contains('visible') 
+                    ? '<i class="fas fa-eye-slash"></i> Hide Preview' 
+                    : '<i class="fas fa-eye"></i> Preview Message';
+            });
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                formMessage.textContent = 'Thank you for your message! We will get back to you soon.';
+                formMessage.className = 'form-message success';
+                
+                // Reset form
+                contactForm.reset();
+                previewSection.classList.remove('visible');
+                previewToggle.innerHTML = '<i class="fas fa-eye"></i> Preview Message';
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            });
+
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            navLinksItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+
+        // Add scroll behavior
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Prevent body scroll when mobile menu is open
+        const hamburger = document.querySelector('.hamburger');
+        const body = document.body;
+        
+        hamburger.addEventListener('click', function() {
+            if (this.classList.contains('active')) {
+                body.style.overflow = 'auto';
+            } else {
+                body.style.overflow = 'hidden';
+            }
+        });
+    </script>
+</body>
+</html>
